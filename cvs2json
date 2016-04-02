@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+
+var argv = require('optimist')
+    .usage('Convert CSV file with header to JSON.\nUsage: $0')
+    .demand('f')
+    .alias('f', 'file')
+    .describe('f', 'CSV file with header as first line')
+    .argv;
+
+var fs = require('fs');
+var readline = require('readline');
+var rl = readline.createInterface({
+	input: fs.createReadStream(argv.file)
+});
+
+var data = {};
+var parts;
+var key, value;
+var skipFirst = false;
+
+rl.on('line', function(line) {
+  if (!skipFirst) {
+    skipFirst = true;
+    return;
+  }
+  parts = line.split(/","/);
+  if (parts.length == 2) {
+    key = parts[0].replace(/^"|"$/, '');
+    value = parts[1].replace(/^"|"$/, '');
+    data[key] = value;
+  }
+  else {
+    throw new Error('Invalid line: ' + line);
+  }
+});
+
+rl.on('close', function() {
+  console.log(data);
+});

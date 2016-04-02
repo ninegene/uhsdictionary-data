@@ -72,3 +72,25 @@ sqlite> select count(*) from pali_myanmar_dictionary;
 115357
 ```
 
+### Convert cvs file to json
+
+```
+$ cd data/
+
+# `tail -n +2` removes first line
+$ cat pali_dict.sqlite.unicode.csv | tail -n +2 | sed 's/","/": "/g; s/"$/",/g' > pali_dict.sqlite.unicode.json
+
+# Remove last comma
+$ sed -i '$ s/",$/"/' pali_dict.sqlite.unicode.json
+
+# Write '{' into fist line of file
+$ sed -i '1 i\{' pali_dict.sqlite.unicode.json
+
+# Write '}' into end of file
+$ echo '}' >> pali_dict.sqlite.unicode.json
+```
+
+Use `cvs2json` script instead of method above as that doesn't produce valid json:
+```
+$ ./cvs2json -f ./data/pali_dict.sqlite.unicode.csv > ./data/pali_dict.sqlite.unicode.json
+```

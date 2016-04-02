@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 var argv = require('optimist')
     .usage('Convert Zawgyi to Unicode.\nUsage: $0')
     .demand('f')
@@ -17,22 +18,3 @@ rl.on('line', function(line) {
   line = z2u(line);
   console.log(line);
 });
-
-// var stream = fs.createReadStream(argv.file);
-
-// var output = '';
-// var line;
-// stream.on('data', function(buf) {
-//   line = buf.toString();
-//   output += z2u(line);
-//   console.log(line);
-// });
-
-// stream.on('end', function() {
-//   console.log('end', output.length);
-// });
-
-// var input = 'Character Map ကုိ အသုံးၿပဳၿပီး စာလုံးထပ္မ်ား ရွာေဖြၿခင္း';
-// var output = z2u(input);
-
-// console.log('output:', output);

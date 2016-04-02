@@ -16,7 +16,7 @@ zg12uni51.js from:
 ### Export pali_dict.sqlite db to csv file
 
 ```
-$ sqlite3 pali_dict.sqlite 
+$ sqlite3 pali_dict.sqlite
 SQLite version 3.8.10.2 2015-05-20 18:17:19
 Enter ".help" for usage hints.
 sqlite> .header on
@@ -24,4 +24,20 @@ sqlite> .mode csv
 sqlite> .once /path/to/uhsdictionary-data/data/pali_dict.sqlite.csv
 sqlite> select * from PALI_MYANMAR_DICTIONARY;
 sqlite> ^D
+```
+
+```
+$ ./z2u
+Convert Zawgyi to Unicode.
+Usage: ../../../.nvm/versions/node/v5.5.0/bin/node ./z2u
+
+Options:
+  -f, --file  Zawgyi encoded file  [required]
+
+Missing required arguments: f
+```
+
+Convert using `z2u` script
+```
+$ ./z2u -f ./data/pali_dict.sqlite.csv > ./data/pali_dict.sqlite.unicode.csv
 ```

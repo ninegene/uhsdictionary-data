@@ -26,6 +26,8 @@ sqlite> select * from PALI_MYANMAR_DICTIONARY;
 sqlite> ^D
 ```
 
+See: https://www.sqlite.org/cli.html
+
 #### Convert to unicode using `z2u` script
 
 ```

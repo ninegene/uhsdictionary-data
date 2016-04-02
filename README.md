@@ -21,10 +21,12 @@ SQLite version 3.8.10.2 2015-05-20 18:17:19
 Enter ".help" for usage hints.
 sqlite> .header on
 sqlite> .mode csv
-sqlite> .once /path/to/uhsdictionary-data/data/pali_dict.sqlite.csv
+sqlite> .once /path/to/data/pali_dict.sqlite.csv
 sqlite> select * from PALI_MYANMAR_DICTIONARY;
 sqlite> ^D
 ```
+
+#### Convert to unicode using `z2u` script
 
 ```
 $ ./z2u
@@ -37,7 +39,36 @@ Options:
 Missing required arguments: f
 ```
 
-Convert using `z2u` script
 ```
 $ ./z2u -f ./data/pali_dict.sqlite.csv > ./data/pali_dict.sqlite.unicode.csv
 ```
+
+#### Create `pali_dict.unicode.sqlite` database file
+
+Get `pali_dict.sqlite` schema:
+```
+$ sqlite3 pali_dict.sqlite
+SQLite version 3.8.10.2 2015-05-20 18:17:19
+Enter ".help" for usage hints.
+sqlite> .schema
+CREATE TABLE "PALI_MYANMAR_DICTIONARY" ("pali" VARCHAR, "myanmar" VARCHAR);
+CREATE INDEX "pali_col_indez" ON "PALI_MYANMAR_DICTIONARY" ("pali" ASC, "myanmar" ASC);
+CREATE TABLE android_metadata (locale TEXT);
+sqlite> select count(*) from pali_myanmar_dictionary;
+115356
+sqlite> ^D
+```
+
+Create `pali_dict.unicode.sqlite` and import unicode csv file:
+```
+$ sqlite3 pali_dict.unicode.sqlite
+SQLite version 3.8.10.2 2015-05-20 18:17:19
+Enter ".help" for usage hints.
+sqlite> CREATE TABLE "PALI_MYANMAR_DICTIONARY" ("pali" VARCHAR, "myanmar" VARCHAR);
+sqlite> CREATE INDEX "pali_col_indez" ON "PALI_MYANMAR_DICTIONARY" ("pali" ASC, "myanmar" ASC);
+sqlite> .mode csv
+sqlite> .import /path/to/data/pali_dict.sqlite.unicode.csv PALI_MYANMAR_DICTIONARY
+sqlite> select count(*) from pali_myanmar_dictionary;
+115357
+```
+

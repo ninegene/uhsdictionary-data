@@ -2,7 +2,7 @@
 
 Convert ဦးဟုတ်စိန် အဘိဓာန် data from Zawgyi to Unicode encoding.
 
-* https://my.wikipedia.org/wiki/ဟုတ်​စိန်၊ ဦး(အဘိဓာန်​ဆရာ​ကြီး)
+* https://my.wikipedia.org/wiki/ဟုတ်​စိန်၊_ဦး(အဘိဓာန်​ဆရာ​ကြီး)
 
 ## Notes
 
